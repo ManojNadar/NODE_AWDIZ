@@ -10,16 +10,27 @@
 // use listen function
 
 import express from "express";
-const app = express();
 
+import { login, register, home } from "./Controllers/UsersController.js";
+import mongoose from "mongoose";
+const app = express();
 const PORT = 8000;
 
-app.get("/", (req, res) => {
-  res.send("Hello Home");
-});
-app.get("/about", (req, res) => {
-  res.send("Hello About");
-});
+const url =
+  "mongodb+srv://manojndr:manoj317@cluster0.l8s5peb.mongodb.net/awdiznode";
+
+app.get("/", home);
+app.get("/login", login);
+app.get("/register", register);
+
+mongoose
+  .connect(url)
+  .then(() => {
+    console.log("connected to datbase");
+  })
+  .catch(() => {
+    console.log("error on connecting");
+  });
 
 app.listen(PORT, () => {
   console.log("server started at PORT number 8000");
