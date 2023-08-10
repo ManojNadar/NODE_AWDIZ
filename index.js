@@ -17,14 +17,16 @@ import dotenv from "dotenv";
 const app = express();
 dotenv.config();
 const PORT = 8000;
+
+// ================
+
 app.use(express.json());
 
 // routing************************************************
 
 app.get("/", home);
 app.get("/login", login);
-app.get("/register", register);
-
+app.post("/register", register);
 
 // Mongoose connection**************************************
 
@@ -37,9 +39,7 @@ mongoose
     console.log("error on connecting");
   });
 
-
-
-  // app Listening*******************************************
+// app Listening*******************************************
 
 app.listen(PORT, () => {
   console.log("server started at PORT number 8000");
