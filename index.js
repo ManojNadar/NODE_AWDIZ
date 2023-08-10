@@ -13,24 +13,33 @@ import express from "express";
 
 import { login, register, home } from "./Controllers/UsersController.js";
 import mongoose from "mongoose";
+import dotenv from "dotenv";
 const app = express();
+dotenv.config();
 const PORT = 8000;
+app.use(express.json());
 
-const url =
-  "mongodb+srv://manojndr:manoj317@cluster0.l8s5peb.mongodb.net/awdiznode";
+// routing************************************************
 
 app.get("/", home);
 app.get("/login", login);
 app.get("/register", register);
 
+
+// Mongoose connection**************************************
+
 mongoose
-  .connect(url)
+  .connect(process.env.URL)
   .then(() => {
     console.log("connected to datbase");
   })
   .catch(() => {
     console.log("error on connecting");
   });
+
+
+
+  // app Listening*******************************************
 
 app.listen(PORT, () => {
   console.log("server started at PORT number 8000");
